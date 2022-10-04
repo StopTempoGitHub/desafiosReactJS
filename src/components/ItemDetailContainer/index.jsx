@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
-import ItemList from '../ItemList';
-import Title from '../Title';
+
+import ItemDetail from "../ItemDetail";
 import { useParams } from 'react-router-dom';
 
 const  films = [
@@ -12,32 +12,23 @@ const  films = [
     {id: 6, image: "https://wallpaperaccess.com/full/251372.jpg", category: 'juegos', title: "Halo"},
 ];
 
-export const ItemListContainer = ({texto}) => {
-    const [data, setData] = useState([]);
+export const ItemDetailContainer = () => {
+    const [data, setData] = useState({});
+    const { detalleId } = useParams();
 
-    const { categoriaId } = useParams();
-
-    useEffect (() => {
+    useEffect(() => {
         const getData = new Promise(resolve => {
             setTimeout(() => {
                 resolve(films);
-            }, 500)
+            }, 500);
         });
-        if (categoriaId) {
-            getData.then(res => setData(res.filter(film => film.category === categoriaId)));            
-        } else {
-            getData.then(res => setData(res));
-        }
-    }, [categoriaId])
-    
-    
-    
+
+        getData.then(res => setData(res.find(film => film.id === parseInt(detalleId))));
+    }, [detalleId]);
+
     return (
-        <>
-            <Title greeting={texto} />
-            <ItemList data={data} />
-        </>
+        <ItemDetail data={data} />
     );
 }
 
-export default ItemListContainer;
+export default ItemDetailContainer;
