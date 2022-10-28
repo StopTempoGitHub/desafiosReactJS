@@ -9,10 +9,10 @@ const Cart = () => {
 
     const order = {
         buyer: {
-            name: 'Pablo',
-            email: 'pablo@gmail.com',
-            phone: '123123',
-            address: 'asdd'
+            name: 'Fer',
+            email: 'ferdi@gmail.com',
+            phone: '1512312232',
+            address: 'Maipu 1224, CABA'
         },
         items: cart.map(product => ({ id: product.id, title: product.title, price: product.price, quantity: product.quantity })),
         total: totalPrice(),
@@ -23,13 +23,14 @@ const Cart = () => {
         const ordersCollection = collection(db, 'orders');
         addDoc(ordersCollection, order)
             .then(({ id }) => console.log(id))
+        alert("¡Usted a emitido una orden de Compra!")
     }
 
     if (cart.length === 0) {
         return (
             <>
-                <p>No hay elementos en el carrito.</p>
-                <Link to='/'>Hacer compras</Link>
+                <p className="m-5">No hay elementos en el carrito.</p>
+                <Link to='/' className="ml-5 bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">Hacer compras</Link>
             </>
         );
     }
@@ -39,10 +40,12 @@ const Cart = () => {
             {
                 cart.map(product => <ItemCart key={product.id} product={product} />)
             }
-            <p>
-                total: {totalPrice()}
-            </p>
-            <button onClick={handleClick}>Emitir Compra</button>
+            <div className="flex flex-col items-center mt-10">
+                <p>
+                    total: ${totalPrice()}
+                </p>
+                <button onClick={handleClick} className="mt-2 mb-20 bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">Emitir Compra</button>
+            </div>
         </>
     )
 }

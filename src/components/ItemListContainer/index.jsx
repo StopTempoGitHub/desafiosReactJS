@@ -3,6 +3,7 @@ import { getFirestore, collection, getDocs, query, where } from 'firebase/firest
 import ItemList from '../ItemList';
 import Title from '../Title';
 import { useParams } from 'react-router-dom';
+import './itemListContainer.css';
 
 // 1- Traer el servicio de firestor
 // 2- Crear un puntero al dato que queremos traer
@@ -39,8 +40,10 @@ export const ItemListContainer = ({ texto }) => {
     
     return (
         <>
-            <Title greeting={texto} />
-            <ItemList data={data} />
+            <div className="cajaProductos ml-5">
+                <Title greeting={texto} />
+                <ItemList data={data} />
+            </div>
         </>
     );
 }
